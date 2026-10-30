@@ -14,7 +14,9 @@ namespace RhythmGame.Shell
         {
             Console.Clear();
             Console.CursorVisible = false;
-            Console.WriteLine("⚡ MULTIPLIER CORE ENGAGED! Press [SPACEBAR] to match timing windows.");
+            Console.WriteLine(
+                "⚡ MULTIPLIER CORE ENGAGED! Press [SPACEBAR] to match timing windows."
+            );
             Thread.Sleep(1200);
 
             var noteTimeline = Microsoft.FSharp.Collections.ListModule.OfSeq(
@@ -54,26 +56,49 @@ namespace RhythmGame.Shell
         {
             Console.SetCursorPosition(0, 2);
             Console.WriteLine($"Time: {elapsed:F2}s / {TrackLength:F2}s   ");
-            Console.WriteLine($"Score: {state.Score:D6}  |  Combo: {state.Combo}  |  Multiplier: {state.Multiplier}x     ");
-            
+            Console.WriteLine(
+                $"Score: {state.Score:D6}  |  Combo: {state.Combo}  |  Multiplier: {state.Multiplier}x     "
+            );
+
             // Format out the internal F# Option and Union structure cleanly into text formatting strings
             string judgmentText = "---";
             ConsoleColor judgmentColor = ConsoleColor.Gray;
 
-            if (state.LastJudgment != null && Microsoft.FSharp.Core.OptionModule.IsSome(state.LastJudgment))
+            if (
+                state.LastJudgment != null
+                && Microsoft.FSharp.Core.OptionModule.IsSome(state.LastJudgment)
+            )
             {
                 var val = state.LastJudgment.Value;
-                if (val.IsPerfect)  { judgmentText = "⭐ PERFECT! [300]"; judgmentColor = ConsoleColor.Cyan; }
-                if (val.IsGreat)    { judgmentText = "👍 GREAT!   [100]"; judgmentColor = ConsoleColor.Green; }
-                if (val.IsGood)     { judgmentText = "👌 GOOD    [50] "; judgmentColor = ConsoleColor.Yellow; }
-                if (val.IsMiss)     { judgmentText = "❌ MISS         "; judgmentColor = ConsoleColor.Red; }
+                if (val.IsPerfect)
+                {
+                    judgmentText = "⭐ PERFECT! [300]";
+                    judgmentColor = ConsoleColor.Cyan;
+                }
+                if (val.IsGreat)
+                {
+                    judgmentText = "👍 GREAT!   [100]";
+                    judgmentColor = ConsoleColor.Green;
+                }
+                if (val.IsGood)
+                {
+                    judgmentText = "👌 GOOD    [50] ";
+                    judgmentColor = ConsoleColor.Yellow;
+                }
+                if (val.IsMiss)
+                {
+                    judgmentText = "❌ MISS         ";
+                    judgmentColor = ConsoleColor.Red;
+                }
             }
 
             Console.Write("Rating: ");
             Console.ForegroundColor = judgmentColor;
             Console.Write(judgmentText);
             Console.ResetColor();
-            Console.WriteLine("    \n===============================================================");
+            Console.WriteLine(
+                "    \n==============================================================="
+            );
 
             // Render scrolling chart path
             Console.Write("Lane: [ ");
@@ -81,15 +106,15 @@ namespace RhythmGame.Shell
             {
                 var note = state.Notes.FirstOrDefault(n => Math.Abs(n.TargetTime - t) < 0.07);
 
-                if (Math.Abs(t - elapsed) < 0.07) 
+                if (Math.Abs(t - elapsed) < 0.07)
                 {
                     Console.Write("||"); // Target line
                 }
-                else if (note != null) 
+                else if (note != null)
                 {
                     Console.Write(note.IsProcessed ? "-" : "O");
                 }
-                else 
+                else
                 {
                     Console.Write("-");
                 }
