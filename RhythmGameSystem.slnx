@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/CoreSrc/">
+    <Project Path="CoreSrc/RhythmGame.Core/RhythmGame.Core.fsproj" />
+  </Folder>
+  <Folder Name="/ShellSrc/">
+    <Project Path="ShellSrc/RhythmGame.Shell/RhythmGame.Shell.csproj" />
+  </Folder>
+</Solution>
